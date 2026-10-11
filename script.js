@@ -1,4 +1,4 @@
-<script>
+
 /* ================================================================
    EINSTELLUNGEN DER TERMINABFRAGE – hier alles anpassen
    ================================================================ */
@@ -355,4 +355,3 @@ console.log(
   'background:#B4101F;color:#fff;padding:4px 10px;border-radius:8px;font-weight:700;',
   'color:#888;padding:4px 0;'
 );
-</script>
